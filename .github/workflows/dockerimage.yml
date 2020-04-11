@@ -31,5 +31,5 @@ jobs:
     - name: Deployment no Azure WebApp Container
       uses: Azure/webapps-container-deploy@v1
       with:
-        app-name: groffe-githubactions
+        app-name: groffecontador0
         images: ${{ secrets.DOCKER_CONTAINER_REGISTRY }}/apicontagem-appinsights:latest
