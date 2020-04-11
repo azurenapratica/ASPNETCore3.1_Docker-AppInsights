@@ -23,3 +23,13 @@ jobs:
         docker build . --file Dockerfile --tag ${{ secrets.DOCKER_CONTAINER_REGISTRY }}/apicontagem-appinsights:latest
         docker tag ${{ secrets.DOCKER_CONTAINER_REGISTRY }}/apicontagem-appinsights:latest ${{ secrets.DOCKER_CONTAINER_REGISTRY }}/apicontagem-appinsights:$(date +%s)
         docker push ${{ secrets.DOCKER_CONTAINER_REGISTRY }}/apicontagem-appinsights
+
+    - uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Deployment no Azure WebApp Container
+      uses: Azure/webapps-container-deploy@v1
+      with:
+        app-name: groffe-githubactions
+        images: ${{ secrets.DOCKER_CONTAINER_REGISTRY }}/apicontagem-appinsights:latest
